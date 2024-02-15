@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  #countdown {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div id="countdown"></div>
+<button onclick="decrementTimer()">Decrement</button>
+<button onclick="incrementTimer()">Increment</button>
+<button onclick="resetTimer()">Reset</button>
+
+<script>
+// Set the initial countdown time in seconds
+let countdownTime = 0;
+
+// Display the initial countdown value
+document.getElementById('countdown').innerText = formatTime(countdownTime);
+
+// Create an interval to update the countdown every second
+let countdownInterval = setInterval(updateCountdown, 1000);
+
+function updateCountdown() {
+    countdownTime++;
+    document.getElementById('countdown').innerText = formatTime(countdownTime);
+}
+
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
+function decrementTimer() {
+    countdownTime -= 10; // Decrement by 10 seconds
+    if (countdownTime < 0) {
+        countdownTime = 0;
+    }
+    document.getElementById('countdown').innerText = formatTime(countdownTime);
+}
+
+function incrementTimer() {
+    countdownTime += 10; // Increment by 10 seconds
+    document.getElementById('countdown').innerText = formatTime(countdownTime);
+}
+
+function resetTimer() {
+    clearInterval(countdownInterval);
+    countdownTime = 0;
+    document.getElementById('countdown').innerText = formatTime(countdownTime);
+    countdownInterval = setInterval(updateCountdown, 1000);
+}
+</script>
+
+</body>
+</html>
